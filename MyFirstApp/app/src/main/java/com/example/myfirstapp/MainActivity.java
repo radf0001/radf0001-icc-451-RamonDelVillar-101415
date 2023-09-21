@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    public static String tempLandscape = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
 
         Button buttonFecha = findViewById(R.id.btnFecha);
-        buttonFecha.setText(currentDateString);
+        if(tempLandscape == null){
+            buttonFecha.setText(currentDateString);
+        }else{
+            buttonFecha.setText(tempLandscape);
+        }
         buttonFecha.setOnClickListener(view -> {
             DialogFragment datePicker = new DatePickerFragment();
             datePicker.show(getSupportFragmentManager(), "date picker");
@@ -96,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         Button buttonFecha = findViewById(R.id.btnFecha);
         buttonFecha.setText(currentDateString);
+        tempLandscape = currentDateString;
     }
 
     public void validar(View view){
