@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="edit_nombre">Digite un nombre...</string>
+    <string name="edit_apellido">Digite un apellido...</string>
+    <string name="button_send">ENVIAR</string>
+    <string name="button_clean">LIMPIAR</string>
+    <string-array name="edit_generos">
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+</resources>
