@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed61c12d-6ebf-4b73-aa5b-ff700f4713a4" name="Changes" comment="Build Your First App" />
+    <list default="true" id="ed61c12d-6ebf-4b73-aa5b-ff700f4713a4" name="Changes" comment="MyFirstApp Arreglos de Color y otros dettales">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BuildYourFirstApp/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BuildYourFirstApp/.idea/gradle.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,14 +21,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "experimentalPlugin",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -34,6 +45,11 @@
       <workItem from="1695319543496" duration="103000" />
       <workItem from="1695321517811" duration="167000" />
       <workItem from="1695322002408" duration="291000" />
+      <workItem from="1695336297982" duration="319000" />
+      <workItem from="1695403833277" duration="2000" />
+      <workItem from="1695405933129" duration="31000" />
+      <workItem from="1695511738853" duration="376000" />
+      <workItem from="1695512171288" duration="376000" />
     </task>
     <task id="LOCAL-00001" summary="Build Your First App">
       <option name="closed" value="true" />
@@ -51,7 +67,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695322188645</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="MyFirstApp Arreglos de Color y otros dettales">
+      <option name="closed" value="true" />
+      <created>1695336609980</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1695336609980</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -59,6 +83,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Build Your First App" />
-    <option name="LAST_COMMIT_MESSAGE" value="Build Your First App" />
+    <MESSAGE value="MyFirstApp Arreglos de Color y otros dettales" />
+    <option name="LAST_COMMIT_MESSAGE" value="MyFirstApp Arreglos de Color y otros dettales" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
