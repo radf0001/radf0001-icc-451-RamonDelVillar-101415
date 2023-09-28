@@ -1,0 +1,50 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tools="http://schemas.android.com/tools"
+                                   app:cardElevation="4dp"
+                                   app:cardCornerRadius="8dp"
+                                   android:layout_marginHorizontal="16dp"
+                                   android:layout_marginVertical="8dp">
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+        <ImageView
+                android:id="@+id/iconImageViewRecyclerView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                app:srcCompat="@drawable/contact_mail_fill0_wght400_grad0_opsz24"
+                android:layout_alignParentLeft="true"/>
+
+        <LinearLayout
+                android:id="@+id/linearLayoutRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/iconImageViewRecyclerView"
+                android:orientation="vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/iconImageViewRecyclerView">
+            <CheckBox
+                    android:id="@+id/todoCheckBoxRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingStart="8dp"
+                    android:buttonTint="@android:color/holo_green_dark"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

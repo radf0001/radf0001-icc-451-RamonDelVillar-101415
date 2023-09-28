@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tools="http://schemas.android.com/tools"
+                                   app:cardElevation="4dp"
+                                   app:cardCornerRadius="8dp"
+                                   android:layout_marginHorizontal="16dp"
+                                   android:layout_marginVertical="8dp">
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+        <Button
+                android:id="@+id/iconImageViewListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CRUD"/>
+
+        <LinearLayout
+                android:id="@+id/linearLayoutListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="0dp"
+                android:layout_toEndOf="@+id/iconImageViewListView"
+                android:orientation="vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/iconImageViewListView">
+            <CheckBox
+                    android:id="@+id/todoCheckBoxListView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingStart="8dp"
+                    android:buttonTint="@android:color/holo_green_dark"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
