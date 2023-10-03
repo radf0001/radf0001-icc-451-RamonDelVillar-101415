@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Tarea4</string>
+    <string name="add_word">Add</string>
+    <string name="hint_word">Tarea…</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Tarea not saved because it is empty.</string>
+</resources>
