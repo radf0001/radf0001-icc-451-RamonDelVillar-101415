@@ -7,4 +7,5 @@ El desafio mas grande que enfrente fue el de integrar recyclerview y listview en
 Características adicionales agregadas:
 
 • capacidad de marcar tareas como completadas.
+
 • editar el nombre de una tarea existente.
