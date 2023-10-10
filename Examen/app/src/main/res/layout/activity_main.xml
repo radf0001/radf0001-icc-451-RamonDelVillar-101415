@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <EditText
+            android:id="@+id/filtroText"
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="32sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/filtroText"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:nestedScrollingEnabled="true" />
+    <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/btnFiltro" android:layout_toEndOf="@+id/filtroText"
+            android:layout_marginStart="15dp" android:layout_alignParentEnd="true" android:layout_marginEnd="14dp"
+            android:layout_marginTop="16dp"/>
+</RelativeLayout>
