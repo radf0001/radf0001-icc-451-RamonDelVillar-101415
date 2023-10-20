@@ -9,7 +9,7 @@ class IconButtonWidget extends StatefulWidget {
 
 class _IconButtonWidgetState extends State<IconButtonWidget> {
   double _speakerVol = 0.0;
-  Color _backgroundColor = Colors.red; // Color de fondo azul inicial
+  Color _backgroundColor = Colors.white; // Color de fondo azul inicial
 
   void _updateBackgroundColor() {
     // Ajustar la opacidad del color de fondo según el valor de _speakerVol
