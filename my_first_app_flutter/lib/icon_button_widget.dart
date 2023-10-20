@@ -44,6 +44,7 @@ class _IconButtonWidgetState extends State<IconButtonWidget> {
                 max: 100,
                 divisions: 10,
                 label: "Volumen",
+                activeColor: Colors.green,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +60,7 @@ class _IconButtonWidgetState extends State<IconButtonWidget> {
                     },
                     icon: Icon(Icons.volume_down),
                     iconSize: 50.0,
-                    color: Colors.lightBlue,
+                    color: Colors.green,
                     tooltip: "Bajar volumen de a 10",
                   ),
                   IconButton(
@@ -73,7 +74,7 @@ class _IconButtonWidgetState extends State<IconButtonWidget> {
                     },
                     icon: Icon(Icons.volume_up),
                     iconSize: 50.0,
-                    color: Colors.lightBlue,
+                    color: Colors.green,
                     tooltip: "Subir volumen de a 10",
                   ),
                 ],

@@ -18,7 +18,8 @@ My First App
 - Text
 
 ## Funcionalidad
-Puede bajar y subir el volumen de 0 a 100 de 10 a 10 con los botones y con el slider y se refleja el volumen en el texto de abajo.
+Puede bajar y subir el volumen de 0 a 100 de 10 a 10 con los botones y con el slider y se refleja el volumen en el texto de abajo
+y mientras baja el volumen el fondo se hace mas claro y mas oscuro cuando sube.
 
 ## Pruebas
 Funciona segun lo esperado
