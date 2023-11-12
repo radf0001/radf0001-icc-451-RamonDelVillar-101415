@@ -42,6 +42,10 @@ dependencies:
   fast_cached_network_image: ^1.2.0
   palette_generator: ^0.3.3+3
   flutter_svg: ^2.0.9
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
+  get: ^4.6.1
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +81,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/images/
+    - lib/images/types/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -7,6 +7,28 @@ PokemonsData pokemonsDataFromJson(String str) => PokemonsData.fromJson(jsonDecod
 Pokemon pokemonFromJson(String str) => Pokemon.fromJson(jsonDecode(str));
 PokemonsType pokemonsTypeFromJson(String str) => PokemonsType.fromJson(jsonDecode(str));
 
+class PokemonDb {
+  static const tblPokemon = 'pokemon';
+  static const colNameId = 'idName';
+
+  String? idName;
+
+  PokemonDb({
+    required this.idName,
+  });
+
+  PokemonDb.fromMap(Map<String, dynamic> map) {
+    idName = map[colNameId];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
+      colNameId: idName,
+    };
+    return map;
+  }
+}
+
 @JsonSerializable()
 class PokemonsType {
   List<PokemonElement> pokemon;
