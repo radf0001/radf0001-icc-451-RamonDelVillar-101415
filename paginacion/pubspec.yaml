@@ -46,6 +46,9 @@ dependencies:
   path_provider: ^2.1.1
   get: ^4.6.1
   flutter_screenutil: ^5.9.0
+  sqflite_common_ffi: ^2.3.0+3
+  intl: ^0.18.0
+  responsive_framework: ^1.1.1
 
 dev_dependencies:
   flutter_test:

@@ -5,15 +5,11 @@ import 'package:path/path.dart';
 
 import '../model/pokemon_data.dart';
 
-
 class DatabaseHelper {
   static const _databaseName = 'PokemonDatabase.db';
-  // ignore: constant_identifier_names
   static const int DB_VERSION = 1;
 
-  //singleton class
   DatabaseHelper._();
-
   static final DatabaseHelper instance = DatabaseHelper._();
 
   Database? _database;
@@ -23,7 +19,7 @@ class DatabaseHelper {
     _database = await _initDatabase();
     return _database!;
   }
-  //init database
+
   _initDatabase() async {
     Directory dataDirectory = await getApplicationDocumentsDirectory();
     String dbPath = join(dataDirectory.path, _databaseName);
@@ -39,16 +35,31 @@ class DatabaseHelper {
 		  )
 		  ''');
   }
+
+  Future<bool> isPokemonExists(String idName) async {
+    final db = await database;
+    final result = await db.query(
+      PokemonDb.tblPokemon,
+      where: '${PokemonDb.colNameId} = ?',
+      whereArgs: [idName],
+    );
+    return result.isNotEmpty;
+  }
+
   //Data - insert
   Future<int> insertData(PokemonDb pokemon) async {
-    Database db = await database;
-    return await db.insert(PokemonDb.tblPokemon, pokemon.toMap());
+    final db = await database;
+    bool exists = await isPokemonExists(pokemon.idName!);
+    if (!exists) {
+      return await db.insert(PokemonDb.tblPokemon, pokemon.toMap());
+    }
+    return 0; // Retorna 0 o algún otro valor para indicar que no se insertó
   }
 
   Future<int?> getCountData() async {
     Database db = await database;
-    int? count = Sqflite
-        .firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM ${PokemonDb.tblPokemon}'));
+    int? count = Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM ${PokemonDb.tblPokemon}'));
     return count;
   }
 
@@ -73,12 +84,12 @@ class DatabaseHelper {
   }
 
   Future<List<PokemonDb>> searchPokemons(String keyword) async {
-    if(keyword == "" || keyword == " "){
+    if (keyword == "" || keyword == " ") {
       return [];
     }
     Database db = await database;
-    List<Map<String, dynamic>> allRows = await db
-        .query(PokemonDb.tblPokemon, where: '${PokemonDb.colNameId} LIKE ?', whereArgs: ['%$keyword%']);
+    List<Map<String, dynamic>> allRows = await db.query(PokemonDb.tblPokemon,
+        where: '${PokemonDb.colNameId} LIKE ?', whereArgs: ['%$keyword%']);
     return allRows.isEmpty
         ? []
         : allRows.map((x) => PokemonDb.fromMap(x)).toList();

@@ -4,29 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'ProductgridItemWidget.dart';
 import '../model/pokemon_data.dart';
-// void main() {
-//   runApp(MyApp());
-// }
 
 class DetallePokemon extends StatelessWidget {
   final String pokemonNumber;
   final String pokemonName;
   final Pokemon pokemonDetails;
 
-  const DetallePokemon({Key? key, required this.pokemonNumber, required this.pokemonName, required this.pokemonDetails})
+  const DetallePokemon(
+      {Key? key,
+      required this.pokemonNumber,
+      required this.pokemonName,
+      required this.pokemonDetails})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       builder: (context, child) => MaterialApp(
         routes: {
           '/': (context) => Scaffold(
-                body: CardInterface(pokemonNumber: pokemonNumber,pokemonName: pokemonName, pokemonDetails: pokemonDetails),
+                body: CardInterface(
+                    pokemonNumber: pokemonNumber,
+                    pokemonName: pokemonName,
+                    pokemonDetails: pokemonDetails),
                 bottomNavigationBar: BottomAppBar(
                     // child: IconButton(
                     //   icon: Icon(Icons.home),
@@ -49,11 +52,52 @@ class CardInterface extends StatelessWidget {
   final String pokemonName;
   final Pokemon pokemonDetails;
 
-  const CardInterface({Key? key, required this.pokemonNumber, required this.pokemonName, required this.pokemonDetails})
-      : super(key: key);
+  const CardInterface({
+    Key? key,
+    required this.pokemonNumber,
+    required this.pokemonName,
+    required this.pokemonDetails,
+  }) : super(key: key);
+
+  Future<int> fetchEvolutionChainId(String speciesUrl) async {
+    var response = await http.get(Uri.parse(speciesUrl));
+    var json = jsonDecode(response.body);
+    var evolutionChainUrl = json['evolution_chain']['url'] as String;
+
+    // Obtiene la última parte de la URL y elimina cualquier caracter no deseado
+    var evolutionChainIdString =
+        evolutionChainUrl.split('/').where((s) => s.isNotEmpty).last;
+
+    // Intenta convertir la cadena a un número entero
+    try {
+      return int.parse(evolutionChainIdString);
+    } catch (e) {
+      throw FormatException(
+          "No se pudo convertir la URL de la cadena de evolución a un ID numérico.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    String speciesUrl = pokemonDetails.species.url;
+
+    return FutureBuilder<int>(
+      future: fetchEvolutionChainId(speciesUrl),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text("Error: ${snapshot.error}");
+        } else if (snapshot.hasData) {
+          return buildScrollView(snapshot.data!);
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Widget buildScrollView(int evolutionChainId) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -71,7 +115,7 @@ class CardInterface extends StatelessWidget {
                     10, // Ajusta esta línea si es necesario para el espaciado
                 left: 0,
                 right:
-                0, // Establece los lados izquierdo y derecho a 0 para centrar horizontalmente
+                    0, // Establece los lados izquierdo y derecho a 0 para centrar horizontalmente
                 child: Center(
                   // Asegúrate de que el texto esté centrado horizontalmente
                   child: Container(
@@ -97,7 +141,8 @@ class CardInterface extends StatelessWidget {
                     elevation: 0,
                     leading: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: PokemonTypeIcon(pokemonType: pokemonDetails.types![0].type!.name),
+                      child: PokemonTypeIcon(
+                          pokemonType: pokemonDetails.types![0].type!.name),
                     ),
                     actions: <Widget>[
                       IconButton(
@@ -110,19 +155,22 @@ class CardInterface extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     width: double.infinity,
                     child: FastCachedImage(
-                      url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$pokemonNumber.png",
+                      url:
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$pokemonNumber.png",
                       fit: BoxFit.contain,
                       height: SizeExtension(200).h,
                       fadeInDuration: const Duration(seconds: 0),
                       errorBuilder: (context, exception, stacktrace) {
                         return FastCachedImage(
-                          url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$pokemonNumber.png",
+                          url:
+                              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$pokemonNumber.png",
                           fit: BoxFit.contain,
                           height: SizeExtension(200).h,
                           fadeInDuration: const Duration(seconds: 0),
                           errorBuilder: (context, exception, stacktrace) {
                             return FastCachedImage(
-                              url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonNumber.png",
+                              url:
+                                  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonNumber.png",
                               fit: BoxFit.contain,
                               height: SizeExtension(200).h,
                               fadeInDuration: const Duration(seconds: 0),
@@ -157,7 +205,9 @@ class CardInterface extends StatelessWidget {
                   SizedBox(
                       height:
                           SizeExtension(12).h), // Espacio después del nombre
-                  StatsSection(pokemonDetails: pokemonDetails,),
+                  StatsSection(
+                    pokemonDetails: pokemonDetails,
+                  ),
                   SizedBox(
                       height: SizeExtension(12)
                           .h), // Espacio después de las estadísticas
@@ -176,9 +226,7 @@ class CardInterface extends StatelessWidget {
                       height: SizeExtension(12)
                           .h), // Espacio después del título "Evoluciones"
                   EvolutionSection(
-                    pokemonName: pokemonName,
-                    pokemonImageUrl: "",
-                    pokemonNumber: 1,
+                    evolutionChainId: evolutionChainId,
                   ),
                   SizedBox(
                       height: SizeExtension(12)
@@ -206,12 +254,23 @@ class StatsSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          StatColumn(title: 'HP', value: pokemonDetails.stats![0].baseStat.toString()),
-          StatColumn(title: 'Spd', value: pokemonDetails.stats![1].baseStat.toString()),
-          StatColumn(title: 'Def', value: pokemonDetails.stats![2].baseStat.toString()),
-          StatColumn(title: 'Atk', value: pokemonDetails.stats![5].baseStat.toString()),
-          StatColumn(title: 'SP. Atk', value: pokemonDetails.stats![3].baseStat.toString()),
-          StatColumn(title: 'Sp. Def', value: pokemonDetails.stats![4].baseStat.toString()),
+          StatColumn(
+              title: 'HP', value: pokemonDetails.stats![0].baseStat.toString()),
+          StatColumn(
+              title: 'Spd',
+              value: pokemonDetails.stats![1].baseStat.toString()),
+          StatColumn(
+              title: 'Def',
+              value: pokemonDetails.stats![2].baseStat.toString()),
+          StatColumn(
+              title: 'Atk',
+              value: pokemonDetails.stats![5].baseStat.toString()),
+          StatColumn(
+              title: 'SP. Atk',
+              value: pokemonDetails.stats![3].baseStat.toString()),
+          StatColumn(
+              title: 'Sp. Def',
+              value: pokemonDetails.stats![4].baseStat.toString()),
         ],
       ),
     );
@@ -309,37 +368,119 @@ class BottomSection extends StatelessWidget {
   }
 }
 
-class EvolutionSection extends StatelessWidget {
-  final String pokemonName;
-  final String pokemonImageUrl;
-  final int pokemonNumber;
+class Evolution {
+  final String name;
+  final String url;
+  final int id;
 
-  const EvolutionSection({
-    Key? key,
-    required this.pokemonName,
-    required this.pokemonImageUrl,
-    required this.pokemonNumber,
-  }) : super(key: key);
+  Evolution({required this.name, required this.url, required this.id});
+}
+
+Future<List<Evolution>> fetchEvolutions(int evolutionChainId) async {
+  var url =
+      Uri.parse('https://pokeapi.co/api/v2/evolution-chain/$evolutionChainId');
+  var response = await http.get(url);
+  var json = jsonDecode(response.body);
+
+  List<Evolution> evolutions = [];
+  _parseEvolutionChain(json['chain'], evolutions);
+
+  return evolutions;
+}
+
+void _parseEvolutionChain(
+    Map<String, dynamic> chain, List<Evolution> evolutions) {
+  if (chain['species'] != null) {
+    var speciesUrl = chain['species']['url'];
+    var id = int.parse(
+        speciesUrl.split('/')[6]); // Extrae el ID del Pokémon de la URL
+
+    evolutions.add(Evolution(
+      name: chain['species']['name'],
+      url: speciesUrl,
+      id: id,
+    ));
+  }
+
+  if (chain['evolves_to'] != null && chain['evolves_to'].isNotEmpty) {
+    for (var nextChain in chain['evolves_to']) {
+      _parseEvolutionChain(nextChain, evolutions);
+    }
+  }
+}
+
+class EvolutionSection extends StatelessWidget {
+  final int evolutionChainId;
+
+  const EvolutionSection({Key? key, required this.evolutionChainId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 1.0,
-      ),
-      itemCount: 3, // Número de evoluciones
-      itemBuilder: (context, index) {
-        // return Card(
-        //   child: CustomImageView(
-        //     imagePath: ImageConstant.imgGroup95, // Imagen de fondo (pokebola)
-        //     height: 60.v,
-        //     width: SizeExtension(60).h,
-        //     fit: BoxFit.cover,
-        //   ),
-        // );
+    return FutureBuilder<List<Evolution>>(
+      future: fetchEvolutions(evolutionChainId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text("Error: ${snapshot.error}");
+        } else if (snapshot.hasData) {
+          return GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 1.0,
+            ),
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              var evolution = snapshot.data![index];
+              return Card(
+                child: Column(
+                  children: [
+                    FastCachedImage(
+                      url:
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolution.id}.png",
+                      fit: BoxFit.cover,
+                      fadeInDuration: const Duration(seconds: 0),
+                      errorBuilder: (context, exception, stacktrace) {
+                        return FastCachedImage(
+                          url:
+                              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${evolution.id}.png",
+                          fit: BoxFit.cover,
+                          fadeInDuration: const Duration(seconds: 0),
+                          errorBuilder: (context, exception, stacktrace) {
+                            return FastCachedImage(
+                              url:
+                                  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution.id}.png",
+                              fit: BoxFit.cover,
+                              fadeInDuration: const Duration(seconds: 0),
+                              errorBuilder: (context, exception, stacktrace) {
+                                return const Text("");
+                              },
+                              loadingBuilder: (context, progress) {
+                                return const Text("");
+                              },
+                            );
+                          },
+                          loadingBuilder: (context, progress) {
+                            return const Text("");
+                          },
+                        );
+                      },
+                      loadingBuilder: (context, progress) {
+                        return const Text("");
+                      },
+                    ),
+                    Text(evolution.name),
+                  ],
+                ),
+              );
+            },
+          );
+        } else {
+          return Text("No hay evoluciones");
+        }
       },
     );
   }
@@ -361,7 +502,8 @@ class PokemonTypeIcon extends StatelessWidget {
 
   String getIconName(String type) {
     // Convierte el tipo a minúsculas y reemplaza caracteres no deseados si los hay
-    String formattedType = type.toLowerCase().replaceAll(' ', '').replaceAll('-', '');
+    String formattedType =
+        type.toLowerCase().replaceAll(' ', '').replaceAll('-', '');
     return formattedType;
   }
 }
