@@ -149,7 +149,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                               CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
                                           errorWidget: (context, url, error) => CachedNetworkImage(
                                             fit: BoxFit.cover,
-                                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${resultList[index].split(' ')[0]}.png",
+                                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${resultList[index].split(' ')[0]}.png",
                                             progressIndicatorBuilder: (context, url, downloadProgress) =>
                                                 CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
                                             errorWidget: (context, url, error) => const Text(""),
@@ -184,7 +184,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                               }
                             },
                           );
-                        })),
+                        })
+                ),
               ],
             ),
           ),

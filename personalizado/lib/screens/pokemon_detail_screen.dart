@@ -36,7 +36,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
             child: Column(
               children: [
                 // get status bar height and top screen padding
-                SizedBox(height: MediaQuery.of(context).viewPadding.top + 24),
+                SizedBox(height: MediaQuery.of(context).viewPadding.top-10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -142,7 +142,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                                     CachedNetworkImage(
                                   fit: BoxFit.contain,
                                   imageUrl:
-                                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${widget.pokemon.id}.png",
+                                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${widget.pokemon.id}.png",
                                   progressIndicatorBuilder: (context, url,
                                           downloadProgress) =>
                                       CircularProgressIndicator(

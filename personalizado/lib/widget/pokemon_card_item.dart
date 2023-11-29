@@ -7,13 +7,15 @@ import '../screens/pokemon_detail_screen.dart';
 import '../services/pokemon_favorite.dart';
 
 class PokemonCardItem extends StatefulWidget {
+  final Function callBack;
   final dynamic pokemonResult;
   final int index;
 
   const PokemonCardItem(
       {Key? key,
         required this.pokemonResult,
-        required this.index})
+        required this.index,
+        required this.callBack})
       : super(key: key);
 
   @override
@@ -51,9 +53,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
             MaterialPageRoute(
               builder: (context) => PokemonDetailScreen(pokemon: PokemonBasicData(id: id, name: widget.pokemonResult['name'], cardColor: cardColor)),
             ));
-        setState(() {
-
-        });
+        widget.callBack();
       },
       child: Padding(
         key: Key(id),
@@ -110,7 +110,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                           CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
                       errorWidget: (context, url, error) => CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png",
+                        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png",
                         progressIndicatorBuilder: (context, url, downloadProgress) =>
                             CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
                         errorWidget: (context, url, error) => const Text(""),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personalizado/models/pokemon_basic_data.dart';
+import 'package:personalizado/widget/white_sheet_widgets/evolution_widget.dart';
 import 'package:personalizado/widget/white_sheet_widgets/stats_row_widget.dart';
 import '../../services/http_calls.dart';
 import 'about_widget.dart';
@@ -20,7 +21,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
   final _tabController = PageController();
   int _currentTabIndex = 0;
   bool loading = false;
-  final List<String> _tabs = ['About', 'Stats', 'Moves', 'More Info'];
+  final List<String> _tabs = ['About', 'Stats', 'Moves', 'More Info', 'Evolution'];
 
   Future<void> _fetchData() async {
     if (mounted) {
@@ -34,6 +35,9 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
     if (!mounted) return;
     // fetch pokemon about data
     await httpCalls.getPokemonAboutData(pokemon);
+    if (!mounted) return;
+    // fetch pokemon evolution data
+    await httpCalls.getPokemonEvolutionData(pokemon);
     if (!mounted) return;
     // fetch pokemon stats data
     await httpCalls.fetchPokemonStats(pokemon);
@@ -105,6 +109,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                   StatsWidget(pokemon: pokemon),
                   MovesWidget(pokemon: pokemon),
                   MoreInfoWidget(pokemon: pokemon),
+                  EvolutionWidget(pokemon: pokemon)
                 ],
               ),
             ),

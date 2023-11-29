@@ -15,6 +15,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
 
+  callback(){
+    setState(() {
+    });
+  }
+
   final pokemonFavoriteService = PokemonFavoritesController();
   ScrollController scrollController = ScrollController();
   int limit = 76;
@@ -267,7 +272,7 @@ class _HomePageState extends State<HomePage>{
                 }else{
                   pokemonResult = pokemonsResult[index]['pokemon'];
                 }
-                return PokemonCardItem(pokemonResult: pokemonResult, index: index);
+                return PokemonCardItem(pokemonResult: pokemonResult, index: index, callBack: callback,);
               },
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: orientation == Orientation.portrait ? 2 : 4),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/pokemon_about_data.dart';
 import '../models/pokemon_basic_data.dart';
+import '../models/pokemon_evolutions_data.dart';
 import '../models/pokemon_more_info_data.dart';
 import '../models/pokemon_stats.dart';
 
@@ -21,6 +22,7 @@ class HttpCalls{
         if (habitatData != null) {
           habitat = habitatData['name'];
         }
+        String evolutionChain = pokemonInfo['evolution_chain']['url'];
         String growthRate = pokemonInfo['growth_rate']['name'];
         // get only the first text
         List<String> myList =[];
@@ -54,11 +56,47 @@ class HttpCalls{
           growthRate: growthRate,
           flavorText: flavorTextEdited,
           eggGroups: eggGroupNames,
+          evolutionsUrl: evolutionChain
         );
         pokemon.pokemonAboutData = pokemonAboutData;
       }
     } catch (error) {
       rethrow;
+    }
+  }
+
+
+  Future<void> getPokemonEvolutionData(PokemonBasicData pokemon) async {
+    var url = Uri.parse(pokemon.pokemonAboutData!.evolutionsUrl!);
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        var pokemonInfo = json.decode(response.body);
+        List<PokemonEvolutionData> evolutions = [];
+        _parseEvolutionChain(pokemonInfo['chain'], evolutions);
+
+        pokemon.pokemonEvolutionData = evolutions;
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  void _parseEvolutionChain(Map<String, dynamic> chain, List<PokemonEvolutionData> evolutions) {
+    if (chain['species'] != null) {
+      var speciesUrl = chain['species']['url'];
+
+      evolutions.add(PokemonEvolutionData(
+        name: chain['species']['name'],
+        url: speciesUrl,
+        id: speciesUrl.split('/')[6],
+      ));
+    }
+
+    if (chain['evolves_to'] != null && chain['evolves_to'].isNotEmpty) {
+      for (var nextChain in chain['evolves_to']) {
+        _parseEvolutionChain(nextChain, evolutions);
+      }
     }
   }
 
