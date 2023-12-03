@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed61c12d-6ebf-4b73-aa5b-ff700f4713a4" name="Changes" comment="MyFirstApp Arreglos de Color y otros dettales">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BuildYourFirstApp/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BuildYourFirstApp/.idea/gradle.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ed61c12d-6ebf-4b73-aa5b-ff700f4713a4" name="Changes" comment="MyFirstApp Arreglos de Color y otros dettales" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,11 +23,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "experimentalPlugin",
+    "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -50,6 +49,7 @@
       <workItem from="1695405933129" duration="31000" />
       <workItem from="1695511738853" duration="376000" />
       <workItem from="1695512171288" duration="376000" />
+      <workItem from="1700755960084" duration="111000" />
     </task>
     <task id="LOCAL-00001" summary="Build Your First App">
       <option name="closed" value="true" />
@@ -80,6 +80,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Build Your First App" />

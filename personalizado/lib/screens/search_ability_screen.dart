@@ -30,7 +30,11 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
         if (response.statusCode == 200) {
           final fetchedData = json.decode(response.body);
           // get only the first flavor text
-          final String flavorText = fetchedData['flavor_text_entries'][0]['flavor_text'];
+          // final String flavorText = fetchedData['flavor_text_entries'][0]['flavor_text'];
+          final String flavorText = fetchedData['flavor_text_entries']
+              .where((entry) => entry['language']['name'] == 'en')
+              .map((entry) => entry['flavor_text'])
+              .first;
           // get the pokemons who have the ability
           final fetchedPokemons = fetchedData['pokemon'];
           for (var pokemon in fetchedPokemons) {
@@ -113,7 +117,7 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                                               CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
                                           errorWidget: (context, url, error) => CachedNetworkImage(
                                             fit: BoxFit.cover,
-                                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonName.split(' ')[0]}.png",
+                                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonName.split(' ')[0]}.png",
                                             progressIndicatorBuilder: (context, url, downloadProgress) =>
                                                 CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
                                             errorWidget: (context, url, error) => const Text(""),

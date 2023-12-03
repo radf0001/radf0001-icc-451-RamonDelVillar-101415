@@ -36,13 +36,13 @@ class AboutWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleAndSubtitleWidget(title: 'Descriptions and Characteristics', subtitle: flavorText, titleColor: pokemon.cardColor!,),
-            TitleAndSubtitleWidget(title: 'Growth Rate', subtitle: growthRate.toString(), titleColor: pokemon.cardColor!,),
-            TitleAndSubtitleWidget(title: 'Habitat', subtitle: habitat.toString(), titleColor: pokemon.cardColor!,),
-            TitleAndSubtitleWidget(title: 'Capture Rate', subtitle: '${captureRate.toString()} %', titleColor: pokemon.cardColor!,),
-            TitleAndSubtitleWidget(title: 'Base Happiness', subtitle: '${baseHappiness.toString()} point', titleColor: pokemon.cardColor!,),
+            TitleAndSubtitleWidget(title: 'One Random Description', subtitle: flavorText, titleColor: Colors.white,),
+            TitleAndSubtitleWidget(title: 'Growth Rate', subtitle: growthRate.toString(), titleColor: Colors.white,),
+            TitleAndSubtitleWidget(title: 'Habitat', subtitle: habitat.toString(), titleColor: Colors.white,),
+            TitleAndSubtitleWidget(title: 'Capture Rate', subtitle: '${captureRate.toString()} %', titleColor: Colors.white,),
+            TitleAndSubtitleWidget(title: 'Base Happiness', subtitle: '${baseHappiness.toString()} point', titleColor: Colors.white,),
             // egg groups list
-            PokemonInfoListWidget(listTitle: 'Egg Groups',pokemonData: eggGroups, listTitleColor: pokemon.cardColor!,),
+            PokemonInfoListWidget(listTitle: 'Egg Groups',pokemonData: eggGroups, listTitleColor: Colors.white,),
           ],
         ),
       ),

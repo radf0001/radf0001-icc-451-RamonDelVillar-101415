@@ -7,6 +7,7 @@ class PokemonAboutData {
   String? habitat;
   String? growthRate;
   List<String>? eggGroups;
+  String? evolutionsUrl;
 
 
 
@@ -20,6 +21,7 @@ class PokemonAboutData {
     required this.flavorText,
     required this.habitat,
     required this.growthRate,
+    required this.evolutionsUrl
     // Base Stats tab
   });
 }

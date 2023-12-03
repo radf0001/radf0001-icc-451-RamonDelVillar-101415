@@ -15,6 +15,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
 
+  callback(){
+    setState(() {
+    });
+  }
+
   final pokemonFavoriteService = PokemonFavoritesController();
   ScrollController scrollController = ScrollController();
   int limit = 76;
@@ -267,10 +272,12 @@ class _HomePageState extends State<HomePage>{
                 }else{
                   pokemonResult = pokemonsResult[index]['pokemon'];
                 }
-                return PokemonCardItem(pokemonResult: pokemonResult, index: index);
+                return PokemonCardItem(pokemonResult: pokemonResult, index: index, callBack: callback,);
               },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: orientation == Orientation.portrait ? 2 : 4),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 250, // maximum size of item (on small screens 1 item per row, on bigger as many as can fit with 200.0 px width)
+                childAspectRatio: 9/12
+              ),
             ),
           );
         },

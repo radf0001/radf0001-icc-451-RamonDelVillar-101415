@@ -7,13 +7,15 @@ import '../screens/pokemon_detail_screen.dart';
 import '../services/pokemon_favorite.dart';
 
 class PokemonCardItem extends StatefulWidget {
+  final Function callBack;
   final dynamic pokemonResult;
   final int index;
 
   const PokemonCardItem(
       {Key? key,
         required this.pokemonResult,
-        required this.index})
+        required this.index,
+        required this.callBack})
       : super(key: key);
 
   @override
@@ -51,15 +53,12 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
             MaterialPageRoute(
               builder: (context) => PokemonDetailScreen(pokemon: PokemonBasicData(id: id, name: widget.pokemonResult['name'], cardColor: cardColor)),
             ));
-        setState(() {
-
-        });
+        widget.callBack();
       },
       child: Padding(
         key: Key(id),
         padding: const EdgeInsets.all(5.0),
         child: Container(
-          height: 250,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             gradient: LinearGradient(
@@ -93,77 +92,76 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                     color: Colors.white),
               ),
               widget.index.isEven ? SvgPicture.asset("lib/images/redPokeBall.svg") : SvgPicture.asset("lib/images/bluePokeball.svg"),
-              SizedBox(
-                width: 150,
-                height: 150,
-                child: Hero(
-                  tag: id,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.contain,
-                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
-                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                    errorWidget: (context, url, error) => CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png",
-                      progressIndicatorBuilder: (context, url, downloadProgress) =>
-                          CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                      errorWidget: (context, url, error) => CachedNetworkImage(
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FutureBuilder(
+                          future: checkFavorite("$id ${widget.pokemonResult['name']}"),
+                            builder: (context, dataSnapShot) {
+                              return IconButton(
+                                  onPressed: () async {
+                                    await pokemonFavoriteService
+                                        .toggleFavoritePokemon("$id ${widget.pokemonResult['name']}");
+                                    setState(() {
+
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite,
+                                    color: isFavorite
+                                        ? cardColor ==
+                                        Colors.redAccent
+                                        ? Colors.blueAccent
+                                        : Colors.redAccent
+                                        : Colors.white,
+                                    size: 30,
+                                  ));
+                            }
+                          ),
+                      Text("${id.toString().padLeft(5, '0')} ",
+                        style: const TextStyle(color: Colors.white, fontFamily: 'PokemonSolid'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: Hero(
+                      tag: id,
+                      child: CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png",
+                        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
                         progressIndicatorBuilder: (context, url, downloadProgress) =>
                             CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                        errorWidget: (context, url, error) => const Text(""),
+                        errorWidget: (context, url, error) => CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png",
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
+                          errorWidget: (context, url, error) => CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png",
+                            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
+                            errorWidget: (context, url, error) => const Text(""),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              Positioned(
-                top: -5,
-                left: -5,
-                child: Hero(
-                  tag: "$id ${widget.pokemonResult['name']}",
-                  child: FutureBuilder(
-                      future: checkFavorite("$id ${widget.pokemonResult['name']}"),
-                      builder: (context, dataSnapShot) {
-                        return IconButton(
-                            onPressed: () async {
-                              await pokemonFavoriteService
-                                  .toggleFavoritePokemon("$id ${widget.pokemonResult['name']}");
-                              setState(() {
-
-                              });
-                            },
-                            icon: Icon(
-                              Icons.favorite,
-                              color: isFavorite
-                                  ? cardColor ==
-                                  Colors.redAccent
-                                  ? Colors.blueAccent
-                                  : Colors.redAccent
-                                  : Colors.white,
-                              size: 30,
-                            ));
-                      }),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                right: 8,
-                child: Text(id.toString().padLeft(5, '0'),
-                  style: const TextStyle(color: Colors.white, fontFamily: 'PokemonSolid'),
-                ),
-              ),
-              Positioned(
-                  bottom: 0,
-                  left: 8,
-                  child: SizedBox(
-                    width: 185,
-                    child: Text(widget.pokemonResult['name'],
-                      style: const TextStyle(color: Colors.black, fontFamily: 'PokemonSolid'),
+                  const Spacer(),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3),
+                      child: Text(widget.pokemonResult['name'],
+                        style: const TextStyle(color: Colors.black, fontFamily: 'PokemonSolid'),
+                      ),
                     ),
-                  )
+                  ),
+                ],
               )
             ],
           ),
