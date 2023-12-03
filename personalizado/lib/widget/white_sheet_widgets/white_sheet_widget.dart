@@ -67,29 +67,25 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
     // get screen height and width
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       height: screenHeight * 0.6,
       width: screenWidth,
-      decoration:  const BoxDecoration(
-        color: Color.fromRGBO(19, 19, 19, 1),
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(52),
-            topRight: Radius.circular(52)),
-      ),
       child: Column(
         children: [
           SizedBox(
-            height: screenHeight * 0.085,
+            height: screenHeight * 0.010,
           ),
           SizedBox(
               height: screenHeight * .06,
-              child: Center(child: customScrollerBuilder())),
+              child: Center(child: customScrollerBuilder())
+          ),
           // display circular indicator when loading
           if (loading)
             Expanded(
               child: Center(
                   child: CircularProgressIndicator(
-                      color: widget.pokemon.cardColor == Colors.redAccent ? Colors.blueAccent : Colors.redAccent)),
+                      color: widget.pokemon.cardColor)
+              ),
             ),
           // display the pageView when finish loading
           if (!loading)
@@ -156,12 +152,14 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
   }
 
   void updateTabIndex(int tabIndex) {
-    setState(() {
-      _currentTabIndex = tabIndex;
-      // add animation
-      _tabController.animateToPage(tabIndex,
-          duration: const Duration(milliseconds: 300), curve: Curves.linear);
-    });
+    if(!loading){
+      setState(() {
+        _currentTabIndex = tabIndex;
+        // add animation
+        _tabController.animateToPage(tabIndex,
+            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+      });
+    }
   }
 }
 

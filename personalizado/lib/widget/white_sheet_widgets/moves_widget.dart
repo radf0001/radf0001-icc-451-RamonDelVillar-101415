@@ -28,7 +28,7 @@ class MovesWidget extends StatelessWidget {
           children: [
 
             // moves names list
-            PokemonInfoListWidget(listTitle: 'Moves', pokemonData: moves, listTitleColor: pokemon.cardColor!,),
+            PokemonInfoListWidget(listTitle: 'Moves', pokemonData: moves, listTitleColor: Colors.white,),
           ],
         ),
       ),

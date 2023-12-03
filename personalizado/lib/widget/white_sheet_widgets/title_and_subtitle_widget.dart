@@ -12,7 +12,7 @@ class TitleAndSubtitleWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('$title:',
-            style: TextStyle(fontWeight: FontWeight.bold, color: titleColor, fontFamily: 'PokemonHollow')),
+            style: TextStyle(fontWeight: FontWeight.bold, color: titleColor, fontFamily: 'PokemonSolid')),
         const SizedBox(height: 8),
         Text(subtitle.toString(), style: const TextStyle(color: Colors.white, fontFamily: 'PokemonHollow', fontSize: 12)),
         const SizedBox(height: 16),

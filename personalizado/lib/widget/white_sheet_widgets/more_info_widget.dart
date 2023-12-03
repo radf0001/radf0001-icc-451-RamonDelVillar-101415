@@ -34,17 +34,17 @@ class MoreInfoWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleAndSubtitleWidget(title: 'Height', subtitle: height.toString(), titleColor: pokemon.cardColor!),
-            TitleAndSubtitleWidget(title: 'Weight', subtitle: weight.toString(), titleColor: pokemon.cardColor!),
+            TitleAndSubtitleWidget(title: 'Height', subtitle: height.toString(), titleColor: Colors.white),
+            TitleAndSubtitleWidget(title: 'Weight', subtitle: weight.toString(), titleColor: Colors.white),
             // types names list
-            PokemonInfoListWidget(listTitle: 'Types', pokemonData: types, listTitleColor: pokemon.cardColor!,),
+            PokemonInfoListWidget(listTitle: 'Types', pokemonData: types, listTitleColor: Colors.white,),
             // moves names list
             // PokemonInfoListWidget(listTitle: 'Moves', pokemonData: moves),
             // abilities names list
             // const SizedBox(height: 16),
             const Divider(height: 5),
             const SizedBox(height: 8),
-            PokemonInfoListWidget(listTitle: 'Abilities', pokemonData: abilities, listTitleColor: pokemon.cardColor!,),
+            PokemonInfoListWidget(listTitle: 'Abilities', pokemonData: abilities, listTitleColor: Colors.white,),
           ],
         ),
       ),

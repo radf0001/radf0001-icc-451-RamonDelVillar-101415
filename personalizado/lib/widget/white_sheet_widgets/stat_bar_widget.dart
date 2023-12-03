@@ -66,12 +66,12 @@ class _StatRowWidgetState extends State<StatRowWidget> {
                 width: ('sp. Defence').length * 7,
                 child: Text(
                   statTitle,
-                  style: TextStyle(
-                      color: widget.cardColor, fontFamily: 'PokemonHollow', fontWeight: FontWeight.bold, fontSize: 14),
+                  style: const TextStyle(
+                      color: Colors.white, fontFamily: 'PokemonSolid', fontWeight: FontWeight.bold, fontSize: 14),
                 )),
             const SizedBox(width: 16),
             Text(statNumber.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold, color: widget.cardColor, fontFamily: 'PokemonHollow')),
+                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'PokemonHollow')),
             const SizedBox(width: 16),
             Expanded(
               child: LayoutBuilder(
@@ -92,7 +92,7 @@ class _StatRowWidgetState extends State<StatRowWidget> {
                           height: 20,
                           width: loadStat? statPercentage * constraints.maxWidth: 0,
                           decoration: BoxDecoration(
-                            color: statColor(statNumber),
+                            color: widget.cardColor,
                             borderRadius: BorderRadius.circular(200),
                           ),
                         ),

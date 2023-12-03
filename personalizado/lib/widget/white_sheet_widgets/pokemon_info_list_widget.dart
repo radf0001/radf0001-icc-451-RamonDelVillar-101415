@@ -13,7 +13,7 @@ class PokemonInfoListWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('$listTitle:',
-            style: TextStyle(fontWeight: FontWeight.bold, color: listTitleColor, fontFamily: 'PokemonHollow')),
+            style: TextStyle(fontWeight: FontWeight.bold, color: listTitleColor, fontFamily: 'PokemonSolid')),
         ...pokemonData.map((groupName) {
           return Column(
             children: [

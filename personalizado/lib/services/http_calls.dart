@@ -5,6 +5,7 @@ import '../models/pokemon_basic_data.dart';
 import '../models/pokemon_evolutions_data.dart';
 import '../models/pokemon_more_info_data.dart';
 import '../models/pokemon_stats.dart';
+import "dart:math";
 
 class HttpCalls{
   Future<void> getPokemonAboutData(PokemonBasicData pokemon) async {
@@ -30,14 +31,16 @@ class HttpCalls{
         try{
           for(dynamic temp in pokemonInfo['flavor_text_entries']){
             if(temp["language"]["name"] == "en"){
-              String flavorText = "-> ${temp['flavor_text'].toLowerCase().replaceAll(RegExp('\n'), ' ').replaceAll(RegExp('’'), "'").replaceAll(RegExp("\f"), ' ')}";
+              String flavorText = "${temp['flavor_text'].toLowerCase().replaceAll(RegExp('\n'), ' ').replaceAll(RegExp('’'), "'").replaceAll(RegExp("\f"), ' ')}";
               if(!myList.contains(flavorText)){
                 myList.add(flavorText);
               }
             }
           }
           if(myList.isNotEmpty){
-            flavorTextEdited = myList.join("\n\n");
+            // generates a new Random object
+            final random = Random();
+            flavorTextEdited = myList[random.nextInt(myList.length)];
           }
         }catch(e){
           flavorTextEdited = 'Unknown';
