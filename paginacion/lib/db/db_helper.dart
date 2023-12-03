@@ -9,11 +9,27 @@ class DatabaseHelper {
   static const _databaseName = 'PokemonDatabase.db';
   static const int DB_VERSION = 1;
 
-  DatabaseHelper._();
-  static final DatabaseHelper instance = DatabaseHelper._();
+  // DatabaseHelper._();
+  // static final DatabaseHelper instance = DatabaseHelper._();
 
-  Database? _database;
+  // Future<Database> get database async {
+  //   if (_database != null) return _database!;
+  //   _database = await _initDatabase();
+  //   return _database!;
+  // }
 
+  // Tabla de favoritos
+  static const String tableFavorites = 'favorites';
+
+  // Columnas de la tabla favoritos
+  static const String columnId = 'id';
+  static const String columnName = 'name';
+  static const String columnImageUrl = 'imageUrl';
+
+  DatabaseHelper._privateConstructor();
+  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+
+  static Database? _database;
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
@@ -28,12 +44,21 @@ class DatabaseHelper {
   }
 
   Future _onCreateDB(Database db, int version) async {
-    //create tables
+    // Crea la tabla de pokémon existente
     await db.execute('''
-		  CREATE TABLE ${PokemonDb.tblPokemon}(
-			${PokemonDb.colNameId} TEXT PRIMARY KEY
-		  )
-		  ''');
+      CREATE TABLE ${PokemonDb.tblPokemon}(
+        ${PokemonDb.colNameId} TEXT PRIMARY KEY
+      )
+    ''');
+
+    // Crea la nueva tabla de favoritos
+    await db.execute('''
+      CREATE TABLE $tableFavorites (
+        $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnName TEXT NOT NULL,
+        $columnImageUrl TEXT NOT NULL
+      )
+    ''');
   }
 
   Future<bool> isPokemonExists(String idName) async {
@@ -93,5 +118,42 @@ class DatabaseHelper {
     return allRows.isEmpty
         ? []
         : allRows.map((x) => PokemonDb.fromMap(x)).toList();
+  }
+
+  // Insertar un nuevo favorito
+  Future<int> insertFavorite(Map<String, dynamic> row) async {
+    Database db = await database;
+    return await db.insert(tableFavorites, row);
+  }
+
+  // Recuperar todos los favoritos
+  Future<List<Map<String, dynamic>>> getAllFavorites() async {
+    Database db = await database;
+    return await db.query(tableFavorites);
+  }
+
+  // Eliminar un favorito
+  Future<int> deleteFavorite(int id) async {
+    Database db = await database;
+    return await db
+        .delete(tableFavorites, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  // Actualizar un favorito
+  Future<int> updateFavorite(Map<String, dynamic> row) async {
+    Database db = await database;
+    int id = row[columnId];
+    return await db
+        .update(tableFavorites, row, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  Future<bool> isFavoritePokemonExists(String name) async {
+    final db = await database;
+    final result = await db.query(
+      tableFavorites,
+      where: '$columnName = ?',
+      whereArgs: [name],
+    );
+    return result.isNotEmpty;
   }
 }

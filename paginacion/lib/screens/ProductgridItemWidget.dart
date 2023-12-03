@@ -52,11 +52,15 @@ class ProductgridItemWidget extends StatelessWidget {
             Stack(
               alignment: Alignment.center,
               children: [
-                SvgPicture.asset(
-                  "lib/images/img_group_95.svg",
-                  height: 80.h,
-                  width: 80.w,
-                  fit: BoxFit.contain,
+                Opacity(
+                  opacity:
+                      0.8, // Ajusta este valor a la opacidad que deseas, por ejemplo 0.5 para el 50%
+                  child: SvgPicture.asset(
+                    "lib/images/img_group_95.svg",
+                    height: 80.h,
+                    width: 80.w,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 FastCachedImage(
                   url: imageUrls.first,
@@ -85,13 +89,19 @@ class ProductgridItemWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              pokemonName,
-              style: theme.textTheme.labelLarge?.copyWith(fontSize: 14.sp),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                pokemonName,
+                style: theme.textTheme.labelLarge?.copyWith(fontSize: 14.sp),
+              ),
             ),
-            Text(
-              "#${pokemonNumber.toString().padLeft(3, '0')}",
-              style: theme.textTheme.labelLarge?.copyWith(fontSize: 14.sp),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                "#${pokemonNumber.toString().padLeft(3, '0')}",
+                style: theme.textTheme.labelLarge?.copyWith(fontSize: 14.sp),
+              ),
             ),
           ],
         ),

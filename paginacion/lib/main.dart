@@ -14,6 +14,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'db/db_helper.dart';
 import 'screens/ProductgridItemWidget.dart';
+import 'package:paginacion/screens/Favoritos.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,10 +39,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690), // Define el tamaño de diseño aquí
+      designSize: const Size(360, 690),
       builder: (BuildContext context, Widget? child) {
-        // Inicializar ScreenUtil en este punto
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           home: const HomePage(),
         );
       },
@@ -148,6 +149,14 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     addDataToDatabase();
+  }
+
+  void navigateToFavorites(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => FavoritesScreen(),
+      ),
+    );
   }
 
   String? valueChoose = "all";
@@ -267,20 +276,38 @@ class _HomePageState extends State<HomePage> {
             crossAxisCount: 3,
           ),
           itemBuilder: (context, index) {
-            final dynamic pokemonResult = valueChoose == "all"
-                ? pokemonsResult[index]
-                : pokemonsResult[index].pokemon;
-            final String id = pokemonResult.url.split('/')[6];
-            return ProductgridItemWidget(
-              pokemonName: pokemonResult.name,
-              pokemonNumber: int.parse(id),
-              getDetailsAndNavigate: fetchPokemonDetails,
-            );
+            // Asegúrate de que el índice es válido
+            if (index < pokemonsResult.length) {
+              final dynamic pokemonResult = valueChoose == "all"
+                  ? pokemonsResult[index]
+                  : pokemonsResult[index].pokemon;
+              final String id = pokemonResult.url.split('/')[6];
+              return ProductgridItemWidget(
+                pokemonName: pokemonResult.name,
+                pokemonNumber: int.parse(id),
+                getDetailsAndNavigate: fetchPokemonDetails,
+              );
+            } else {
+              // Retorna un placeholder o un widget vacío si el índice no es válido
+              return Container();
+            }
           },
           itemCount: pokemonsResult.length,
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 249, 249, 249),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: () => navigateToFavorites(context),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

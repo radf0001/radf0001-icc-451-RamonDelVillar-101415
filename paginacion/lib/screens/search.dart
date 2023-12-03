@@ -15,17 +15,17 @@ class _MySearchPageState extends State<MySearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Pokedex",
-          style: TextStyle(color: Colors.yellow, fontFamily: 'PokemonHollow'),
+        appBar: AppBar(
+          title: const Text(
+            "Pokedex",
+            style: TextStyle(color: Colors.yellow, fontFamily: 'PokemonHollow'),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.grey[900],
+          foregroundColor: Colors.white,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.grey[900],
-        foregroundColor: Colors.white,
-      ),
-      body: const SearchPage(),
-        backgroundColor: Colors.grey[800]
-    );
+        body: const SearchPage(),
+        backgroundColor: Colors.grey[800]);
   }
 }
 
@@ -46,8 +46,7 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     _searchTextController.addListener(() async {
       _pokemons = await dbHelper.searchPokemons(_searchTextController.text);
-      setState(() {
-      });
+      setState(() {});
     });
   }
 
@@ -100,8 +99,8 @@ Widget MaisonCard({required PokemonDb pokemon, required BuildContext context}) {
   dynamic pokemonDetails;
 
   Future<bool> fetchPokemonDetails(String pokemonNumber) async {
-    final response = await http.get(
-        Uri.parse('https://pokeapi.co/api/v2/pokemon/$pokemonNumber'));
+    final response = await http
+        .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$pokemonNumber'));
     if (response.statusCode == 200) {
       final result = pokemonFromJson(response.body);
       pokemonDetails = result;
@@ -120,7 +119,11 @@ Widget MaisonCard({required PokemonDb pokemon, required BuildContext context}) {
             await fetchPokemonDetails(pokemon.idName!.split(' ')[0]);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => DetallePokemon(pokemonNumber: pokemon.idName!.split(' ')[0], pokemonName: pokemon.idName!.split(' ')[1], pokemonDetails: pokemonDetails,),
+                builder: (context) => DetallePokemon(
+                  pokemonNumber: pokemon.idName!.split(' ')[0],
+                  pokemonName: pokemon.idName!.split(' ')[1],
+                  pokemonDetails: pokemonDetails,
+                ),
               ),
             );
           },
