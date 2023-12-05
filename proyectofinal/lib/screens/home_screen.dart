@@ -148,8 +148,6 @@ class _HomePageState extends State<HomePage>{
     "dragon",
     "dark",
     "fairy",
-    "unknown",
-    "shadow",
   ];
   dynamic result = "";
   dynamic pokemonResult = "";
