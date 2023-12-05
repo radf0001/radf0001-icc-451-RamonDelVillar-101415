@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../models/pokemon_basic_data.dart';
 import '../screens/pokemon_detail_screen.dart';
 import '../services/pokemon_favorite.dart';
+import '../utils/bottom_to_top.dart';
 
 class PokemonCardItem extends StatefulWidget {
   final Function callBack;
@@ -12,11 +13,10 @@ class PokemonCardItem extends StatefulWidget {
   final int index;
 
   const PokemonCardItem(
-      {Key? key,
+      {super.key,
         required this.pokemonResult,
         required this.index,
-        required this.callBack})
-      : super(key: key);
+        required this.callBack});
 
   @override
   State<PokemonCardItem> createState() => _PokemonCardItemState();
@@ -37,6 +37,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
     }
     final dynamic id = widget.pokemonResult['url'].split('/')[6];
     Color cardColor = widget.index.isEven ? Colors.redAccent : Colors.blueAccent;
+    String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png";
     List<Color> gradient = [
       cardColor,
       cardColor,
@@ -47,13 +48,12 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
     // update ids and imageUrls
     return InkWell(
       key: Key(id),
-      onTap: () async {
-        await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PokemonDetailScreen(pokemon: PokemonBasicData(id: id, name: widget.pokemonResult['name'], cardColor: cardColor)),
-            ));
+      onTap: () async{
+        await Navigator.of(context).push(AnimatedRoute(PokemonDetailScreen(pokemon: PokemonBasicData(id: id, name: widget.pokemonResult['name'], imageUrl: imageUrl, ))));
         widget.callBack();
+        setState(() {
+
+        });
       },
       child: Padding(
         key: Key(id),
@@ -121,7 +121,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                             }
                           ),
                       Text("${id.toString().padLeft(5, '0')} ",
-                        style: const TextStyle(color: Colors.white, fontFamily: 'PokemonSolid'),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ],
                   ),
@@ -157,7 +157,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3),
                       child: Text(widget.pokemonResult['name'],
-                        style: const TextStyle(color: Colors.black, fontFamily: 'PokemonSolid'),
+                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ),
                   ),

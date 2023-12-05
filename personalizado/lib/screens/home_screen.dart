@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:personalizado/screens/search_screen.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../services/pokemon_favorite.dart';
+import '../utils/bottom_to_top.dart';
 import '../widget/pokemon_card_item.dart';
 
 class HomePage extends StatefulWidget {
@@ -182,13 +183,29 @@ class _HomePageState extends State<HomePage>{
                   if(valueItem == valueChoose){
                     return DropdownMenuItem(
                         value: valueItem,
-                        child: Text(valueItem, style: const TextStyle(color: Colors.white, fontFamily: "PokemonSolid", backgroundColor: Colors.black))
+                        child: valueItem != "all" && valueItem != "unknown" && valueItem != "shadow" ? Row(
+                          children: [
+                            Text("$valueItem ", style: const TextStyle(color: Colors.white, backgroundColor: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                            Image.asset(
+                              'lib/images/types/$valueItem.png',
+                              width: 30,
+                            ),
+                          ],
+                        ) : Text(valueItem, style: const TextStyle(color: Colors.white, backgroundColor: Colors.black, fontWeight: FontWeight.bold, fontSize: 20))
                     );
                   }
                   else{
                     return DropdownMenuItem(
-                        value: valueItem,
-                        child: Text(valueItem, style: const TextStyle(color: Colors.black, fontFamily: "PokemonSolid"))
+                      value: valueItem,
+                      child: valueItem != "all" && valueItem != "unknown" && valueItem != "shadow" ?  Row(
+                        children: [
+                          Text("$valueItem ", style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                          Image.asset(
+                            'lib/images/types/$valueItem.png',
+                            width: 30,
+                          ),
+                        ],
+                      ) : Text(valueItem, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                     );
                   }
                 }).toList(),
@@ -198,6 +215,7 @@ class _HomePageState extends State<HomePage>{
             const Text("Pokedex",
               style: TextStyle(color: Colors.yellowAccent, fontFamily: 'PokemonHollow'),
             ),
+            const Spacer(),
           ],
         ),
         centerTitle: true,
@@ -225,14 +243,8 @@ class _HomePageState extends State<HomePage>{
           ),
           IconButton(
             onPressed: () async{
-              await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                    const SearchScreen(),
-                  ));
+              await Navigator.of(context).push(AnimatedRoute(const SearchScreen()));
               setState(() {
-
               });
             },
             icon: const Icon(Icons.search),

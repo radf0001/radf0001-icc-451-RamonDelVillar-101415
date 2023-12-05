@@ -5,7 +5,7 @@ import '../../models/pokemon_basic_data.dart';
 class StatsWidget extends StatelessWidget {
   final PokemonBasicData pokemon;
 
-  const StatsWidget({Key? key, required this.pokemon}) : super(key: key);
+  const StatsWidget({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,7 @@ class StatsWidget extends StatelessWidget {
                 .map((stat) => StatRowWidget(
               statTitle: stat['statTitle'],
               statNumber: stat['statNumber'],
-              cardColor: pokemon.cardColor!,
-            ))
-                .toList(),
+            )),
           ],
         ),
       ),

@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:personalizado/models/pokemon_basic_data.dart';
 import 'package:personalizado/widget/white_sheet_widgets/evolution_widget.dart';
@@ -10,7 +13,7 @@ import 'moves_widget.dart';
 class WhiteSheetWidget extends StatefulWidget {
   final PokemonBasicData pokemon;
 
-  const WhiteSheetWidget({Key? key, required this.pokemon}) : super(key: key);
+  const WhiteSheetWidget({super.key, required this.pokemon});
 
   @override
   State<WhiteSheetWidget> createState() => _WhiteSheetWidgetState();
@@ -21,7 +24,13 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
   final _tabController = PageController();
   int _currentTabIndex = 0;
   bool loading = false;
-  final List<String> _tabs = ['About', 'Stats', 'Moves', 'More Info', 'Evolution'];
+  final List<String> _tabs = [
+    'About',
+    'Stats',
+    'Moves',
+    'More Info',
+    'Evolution'
+  ];
 
   Future<void> _fetchData() async {
     if (mounted) {
@@ -46,7 +55,6 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
         loading = false;
       });
     }
-
   }
 
   @override
@@ -67,53 +75,136 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
     // get screen height and width
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    return SizedBox(
-      height: screenHeight * 0.6,
-      width: screenWidth,
-      child: Column(
-        children: [
-          SizedBox(
-            height: screenHeight * 0.010,
-          ),
-          SizedBox(
-              height: screenHeight * .06,
-              child: Center(child: customScrollerBuilder())
-          ),
-          // display circular indicator when loading
-          if (loading)
-            Expanded(
-              child: Center(
-                  child: CircularProgressIndicator(
-                      color: widget.pokemon.cardColor)
+    if (!loading) {
+      return ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(getBackgroundImage(
+                      widget.pokemon.pokemonMoreInfoData!.types != null
+                          ? widget.pokemon.pokemonMoreInfoData!.types!.first
+                          : "default")),
+                  fit: BoxFit.cover),
+            ),
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          ' ${widget.pokemon.id}',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '${widget.pokemon.name} ',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 200,
+                      width: 200,
+                      child: CachedNetworkImage(
+                        fit: BoxFit.contain,
+                        imageUrl:
+                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.pokemon.id}.png",
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    Colors.white)),
+                        errorWidget: (context, url, error) => CachedNetworkImage(
+                          fit: BoxFit.contain,
+                          imageUrl:
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${widget.pokemon.id}.png",
+                          progressIndicatorBuilder: (context, url,
+                              downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                  valueColor: const AlwaysStoppedAnimation<Color>(
+                                      Colors.white)),
+                          errorWidget: (context, url, error) => CachedNetworkImage(
+                            fit: BoxFit.contain,
+                            imageUrl:
+                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${widget.pokemon.id}.png",
+                            progressIndicatorBuilder: (context, url,
+                                downloadProgress) =>
+                                CircularProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    valueColor: const AlwaysStoppedAnimation<Color>(
+                                        Colors.white)),
+                            errorWidget: (context, url, error) => const Text(""),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          // display the pageView when finish loading
-          if (!loading)
-            Expanded(
-              child: PageView(
-                controller: _tabController,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                onPageChanged: (int index) {
-                  setState(() {
-                    // update the tab index
-                    _currentTabIndex = index;
-                  });
-                },
-                children: [
-                  AboutWidget(pokemon: pokemon),
-                  StatsWidget(pokemon: pokemon),
-                  MovesWidget(pokemon: pokemon),
-                  MoreInfoWidget(pokemon: pokemon),
-                  EvolutionWidget(pokemon: pokemon)
-                ],
-              ),
+          ),
+          SizedBox(
+            height: screenHeight * 0.6,
+            width: screenWidth,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.010,
+                ),
+                SizedBox(
+                    height: screenHeight * .06,
+                    child: Center(child: customScrollerBuilder())),
+                // display circular indicator when loading
+                if (loading)
+                  const Expanded(
+                    child: Center(
+                        child: CircularProgressIndicator(color: Colors.white)),
+                  ),
+                // display the pageView when finish loading
+                if (!loading)
+                  Expanded(
+                    child: PageView(
+                      controller: _tabController,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (int index) {
+                        setState(() {
+                          // update the tab index
+                          _currentTabIndex = index;
+                        });
+                      },
+                      children: [
+                        AboutWidget(pokemon: pokemon),
+                        StatsWidget(pokemon: pokemon),
+                        MovesWidget(pokemon: pokemon),
+                        MoreInfoWidget(pokemon: pokemon),
+                        EvolutionWidget(pokemon: pokemon)
+                      ],
+                    ),
+                  ),
+              ],
             ),
+          ),
         ],
-      ),
-    );
+      );
+    } else {
+      return const Center(
+          child: CircularProgressIndicator(color: Colors.white));
+    }
   }
-
 
   Widget customScrollerBuilder() {
     return Row(
@@ -122,7 +213,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
         ..._tabs.map((tab) {
           int tabIndex = _tabs.indexOf(tab);
           return Expanded(child: tabBuilder(tabIndex, _tabs));
-        }).toList(),
+        }),
       ],
     );
   }
@@ -152,7 +243,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
   }
 
   void updateTabIndex(int tabIndex) {
-    if(!loading){
+    if (!loading) {
       setState(() {
         _currentTabIndex = tabIndex;
         // add animation
@@ -161,6 +252,51 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
       });
     }
   }
+
+  String getBackgroundImage(String type) {
+    switch (type.toLowerCase()) {
+      case "normal":
+        return "lib/images/normal.png";
+      case "fighting":
+        return "lib/images/fighting.png";
+      case "flying":
+        return "lib/images/flying.png";
+      case "poison":
+        return "lib/images/poison.png";
+      case "ground":
+        return "lib/images/ground.png";
+      case "rock":
+        return "lib/images/rock.png";
+      case "bug":
+        return "lib/images/bug.png";
+      case "ghost":
+        return "lib/images/ghost.png";
+      case "steel":
+        return "lib/images/steel.png";
+      case "fire":
+        return "lib/images/fire.png";
+      case "water":
+        return "lib/images/water.png";
+      case "grass":
+        return "lib/images/grass.png";
+      case "electric":
+        return "lib/images/electric1.png";
+      case "psychic":
+        return "lib/images/psychic.png";
+      case "ice":
+        return "lib/images/ice.png";
+      case "dragon":
+        return "lib/images/dragon.png";
+      case "dark":
+        return "lib/images/dark.png";
+      case "fairy":
+        return "lib/images/fairy.png";
+      case "unknown":
+        return "lib/images/unknown.png";
+      case "shadow":
+        return "lib/images/shadow.png";
+      default:
+        return "lib/images/default.png";
+    }
+  }
 }
-
-

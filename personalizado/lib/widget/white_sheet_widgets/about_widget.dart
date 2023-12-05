@@ -7,7 +7,7 @@ import 'title_and_subtitle_widget.dart';
 class AboutWidget extends StatelessWidget {
   final PokemonBasicData pokemon;
 
-  const AboutWidget({Key? key, required this.pokemon}) : super(key: key);
+  const AboutWidget({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class AboutWidget extends StatelessWidget {
             TitleAndSubtitleWidget(title: 'Capture Rate', subtitle: '${captureRate.toString()} %', titleColor: Colors.white,),
             TitleAndSubtitleWidget(title: 'Base Happiness', subtitle: '${baseHappiness.toString()} point', titleColor: Colors.white,),
             // egg groups list
-            PokemonInfoListWidget(listTitle: 'Egg Groups',pokemonData: eggGroups, listTitleColor: Colors.white,),
+            PokemonInfoListWidget(listTitle: 'Egg Groups',pokemonData: eggGroups, listTitleColor: Colors.white, types: false),
           ],
         ),
       ),

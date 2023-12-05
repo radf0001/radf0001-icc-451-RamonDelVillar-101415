@@ -5,10 +5,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:personalizado/screens/pokemon_detail_screen.dart';
 
 import '../models/pokemon_basic_data.dart';
+import '../utils/bottom_to_top.dart';
 
 class SearchedAbilityScreen extends StatefulWidget {
   final String abilityName;
-  const SearchedAbilityScreen({Key? key, required this.abilityName}) : super(key: key);
+  const SearchedAbilityScreen({super.key, required this.abilityName});
 
   @override
   State<SearchedAbilityScreen> createState() => _SearchedAbilityScreenState();
@@ -57,15 +58,6 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
-                size: 40)
-        ),
         backgroundColor: Colors.black,
         title: Text(widget.abilityName, style: const TextStyle(fontFamily: "PokemonHollow", color: Colors.yellowAccent),),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -81,24 +73,25 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Ability Description:', style: TextStyle(color: Colors.grey, fontFamily: "PokemonSolid", fontSize: 20)),
+                  const Text('Ability Description:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
                   const SizedBox(height: 8),
-                  Text(flavorText, style: const TextStyle(color: Colors.white, fontFamily: "PokemonSolid", fontSize: 15)),
+                  Text(flavorText, style: const TextStyle(color: Colors.white, fontSize: 20)),
                   const SizedBox(height: 32),
-                  Text('Pokemons with this ability: ${pokemons.length}', style: const TextStyle(color: Colors.grey, fontFamily: "PokemonSolid", fontSize: 20)),
+                  Text('Pokemons with this ability: ${pokemons.length}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
                   Expanded(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: pokemons.length,
                         itemBuilder: (context, index) {
                           final String pokemonName = pokemons[index];
+                          String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonName.split(' ')[0]}.png";
                           return InkWell(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(height: 16),
                                 Row(children: [
-                                  Text(pokemonName, style: const TextStyle(color: Colors.white, fontFamily: "PokemonSolid", fontSize: 15)),
+                                  Text(pokemonName, style: const TextStyle(color: Colors.white, fontSize: 20)),
                                   const Spacer(),
                                   SizedBox(
                                     width: 75,
@@ -110,19 +103,28 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                                         imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonName.split(' ')[0]}.png",
                                         progressIndicatorBuilder: (context, url, downloadProgress) =>
                                             CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
-                                        errorWidget: (context, url, error) => CachedNetworkImage(
-                                          fit: BoxFit.cover,
-                                          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonName.split(' ')[0]}.png",
-                                          progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                              CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
-                                          errorWidget: (context, url, error) => CachedNetworkImage(
+                                        errorWidget: (context, url, error) {
+                                          imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonName.split(' ')[0]}.png";
+                                          return CachedNetworkImage(
                                             fit: BoxFit.cover,
-                                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonName.split(' ')[0]}.png",
+                                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonName.split(' ')[0]}.png",
                                             progressIndicatorBuilder: (context, url, downloadProgress) =>
                                                 CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
-                                            errorWidget: (context, url, error) => const Text(""),
-                                          ),
-                                        ),
+                                            errorWidget: (context, url, error) {
+                                              imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonName.split(' ')[0]}.png";
+                                              return CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonName.split(' ')[0]}.png",
+                                                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                                    CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
+                                                errorWidget: (context, url, error) {
+                                                  imageUrl = "";
+                                                  return const Text("");
+                                                },
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
@@ -132,11 +134,7 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                               ],
                             ),
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PokemonDetailScreen(pokemon: PokemonBasicData(id: pokemonName.split(' ')[0], name: pokemonName.split(' ')[1], cardColor: index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                                  ));
+                              Navigator.of(context).push(AnimatedRoute(PokemonDetailScreen(pokemon: PokemonBasicData(id: pokemonName.split(' ')[0], name: pokemonName.split(' ')[1], imageUrl: imageUrl))));
                             },
                           );
                         }),

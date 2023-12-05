@@ -4,24 +4,60 @@ class PokemonInfoListWidget extends StatelessWidget {
   final List<String> pokemonData;
   final String listTitle;
   final Color listTitleColor;
+  final bool types;
 
-  const PokemonInfoListWidget({Key? key, required this.pokemonData, required this.listTitle, required this.listTitleColor}) : super(key: key);
+  const PokemonInfoListWidget(
+      {super.key,
+      required this.pokemonData,
+      required this.listTitle,
+      required this.listTitleColor,
+      required this.types});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('$listTitle:',
-            style: TextStyle(fontWeight: FontWeight.bold, color: listTitleColor, fontFamily: 'PokemonSolid')),
-        ...pokemonData.map((groupName) {
+        Text(
+          '$listTitle:',
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+        ),
+        ...pokemonData.asMap().entries.map((entry) {
+          int index = entry.key;
+          String groupName = entry.value;
           return Column(
             children: [
               const SizedBox(height: 8),
-              Text(groupName, style: const TextStyle(color: Colors.white, fontFamily: 'PokemonHollow', fontSize: 12)),
+              types
+                  ? Row(
+                children: [
+                  Text(
+                    "${index+1}. $groupName ",
+                    style: const TextStyle(
+                      fontSize: 16,
+                        color: Colors.white
+                    ),
+                  ),
+                  Image.asset(
+                    'lib/images/types/$groupName.png',
+                    width: 30,
+                  ),
+                ],
+              )
+                  : Text(
+                "${index+1}. $groupName",
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white
+                ),
+              ),
             ],
           );
-        }).toList(),
+        }),
         const SizedBox(height: 16),
       ],
     );

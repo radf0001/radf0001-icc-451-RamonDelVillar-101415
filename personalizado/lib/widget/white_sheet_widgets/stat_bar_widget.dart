@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 class StatRowWidget extends StatefulWidget {
   final String statTitle;
   final int statNumber;
-  final Color cardColor;
 
-  const StatRowWidget({Key? key, required this.statTitle, required this.statNumber, required this.cardColor})
-      : super(key: key);
+  const StatRowWidget({super.key, required this.statTitle, required this.statNumber});
 
   @override
   State<StatRowWidget> createState() => _StatRowWidgetState();
@@ -67,11 +65,11 @@ class _StatRowWidgetState extends State<StatRowWidget> {
                 child: Text(
                   statTitle,
                   style: const TextStyle(
-                      color: Colors.white, fontFamily: 'PokemonSolid', fontWeight: FontWeight.bold, fontSize: 14),
+                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                 )),
             const SizedBox(width: 16),
             Text(statNumber.toString(),
-                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'PokemonHollow')),
+                style: const TextStyle(color: Colors.white, fontSize: 16)),
             const SizedBox(width: 16),
             Expanded(
               child: LayoutBuilder(
@@ -92,7 +90,7 @@ class _StatRowWidgetState extends State<StatRowWidget> {
                           height: 20,
                           width: loadStat? statPercentage * constraints.maxWidth: 0,
                           decoration: BoxDecoration(
-                            color: widget.cardColor,
+                            color: statColor(statNumber),
                             borderRadius: BorderRadius.circular(200),
                           ),
                         ),

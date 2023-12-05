@@ -8,7 +8,7 @@ import 'package:personalizado/models/pokemon_stats.dart';
 class PokemonBasicData {
   final String name;
   String id;
-  Color? cardColor;
+  String imageUrl;
   PokemonAboutData? pokemonAboutData;
   PokemonMoreInfoData? pokemonMoreInfoData;
   PokemonStatsData? pokemonStatsData;
@@ -18,7 +18,7 @@ class PokemonBasicData {
     required this.name,
     required this.id,
     this.pokemonAboutData,
-    this.cardColor,
+    required this.imageUrl,
     this.pokemonMoreInfoData,
     this.pokemonStatsData,
     this.pokemonEvolutionData,

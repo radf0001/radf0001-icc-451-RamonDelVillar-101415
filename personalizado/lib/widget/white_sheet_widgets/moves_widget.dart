@@ -6,7 +6,7 @@ import 'pokemon_info_list_widget.dart';
 class MovesWidget extends StatelessWidget {
   final PokemonBasicData pokemon;
 
-  const MovesWidget({Key? key, required this.pokemon}) : super(key: key);
+  const MovesWidget({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MovesWidget extends StatelessWidget {
           children: [
 
             // moves names list
-            PokemonInfoListWidget(listTitle: 'Moves', pokemonData: moves, listTitleColor: Colors.white,),
+            PokemonInfoListWidget(listTitle: 'Moves', pokemonData: moves, listTitleColor: Colors.white, types: false,),
           ],
         ),
       ),

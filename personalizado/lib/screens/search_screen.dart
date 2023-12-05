@@ -10,19 +10,6 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: IconButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              if(MediaQuery.of(context).viewInsets.bottom > 0) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              }else{
-                Navigator.pop(context);
-              }
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
-                size: 40)
-        ),
         backgroundColor: Colors.black,
         title: const Text('Search Pokemons By: ', style: TextStyle(color: Colors.yellowAccent, fontFamily: "PokemonHollow"),),
         iconTheme: const IconThemeData(color: Colors.white),

@@ -7,7 +7,7 @@ import 'title_and_subtitle_widget.dart';
 class MoreInfoWidget extends StatelessWidget {
   final PokemonBasicData pokemon;
 
-  const MoreInfoWidget({Key? key, required this.pokemon}) : super(key: key);
+  const MoreInfoWidget({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ class MoreInfoWidget extends StatelessWidget {
             TitleAndSubtitleWidget(title: 'Height', subtitle: height.toString(), titleColor: Colors.white),
             TitleAndSubtitleWidget(title: 'Weight', subtitle: weight.toString(), titleColor: Colors.white),
             // types names list
-            PokemonInfoListWidget(listTitle: 'Types', pokemonData: types, listTitleColor: Colors.white,),
+            PokemonInfoListWidget(listTitle: 'Types', pokemonData: types, listTitleColor: Colors.white, types: true),
             // moves names list
             // PokemonInfoListWidget(listTitle: 'Moves', pokemonData: moves),
             // abilities names list
             // const SizedBox(height: 16),
             const Divider(height: 5),
             const SizedBox(height: 8),
-            PokemonInfoListWidget(listTitle: 'Abilities', pokemonData: abilities, listTitleColor: Colors.white,),
+            PokemonInfoListWidget(listTitle: 'Abilities', pokemonData: abilities, listTitleColor: Colors.white, types: false,),
           ],
         ),
       ),

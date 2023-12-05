@@ -4,7 +4,7 @@ class TitleAndSubtitleWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final Color titleColor;
-  const TitleAndSubtitleWidget({Key? key, required this.title, required this.subtitle, required this.titleColor}) : super(key: key);
+  const TitleAndSubtitleWidget({super.key, required this.title, required this.subtitle, required this.titleColor});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,19 @@ class TitleAndSubtitleWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('$title:',
-            style: TextStyle(fontWeight: FontWeight.bold, color: titleColor, fontFamily: 'PokemonSolid')),
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+        ),
         const SizedBox(height: 8),
-        Text(subtitle.toString(), style: const TextStyle(color: Colors.white, fontFamily: 'PokemonHollow', fontSize: 12)),
+        Text(
+          subtitle.toString(), style: const TextStyle(
+            fontSize: 16,
+            color: Colors.white
+          ),
+        ),
         const SizedBox(height: 16),
         const Divider(height: 5),
         const SizedBox(height: 8),
