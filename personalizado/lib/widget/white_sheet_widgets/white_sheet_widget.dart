@@ -87,73 +87,72 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                       widget.pokemon.pokemonMoreInfoData!.types != null
                           ? widget.pokemon.pokemonMoreInfoData!.types!.first
                           : "default")),
-                  fit: BoxFit.cover),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.3), // Ajusta el valor de opacidad según tus necesidades
+                    BlendMode.darken,
+                  ),),
             ),
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Column(
+            child: Column(
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          ' ${widget.pokemon.id}',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24),
-                        ),
-                        const Spacer(),
-                        Text(
-                          '${widget.pokemon.name} ',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24),
-                        ),
-                      ],
+                    Text(
+                      ' ${widget.pokemon.id}',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
                     ),
-                    SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: CachedNetworkImage(
+                    const Spacer(),
+                    Text(
+                      '${widget.pokemon.name} ',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.contain,
+                    imageUrl:
+                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.pokemon.id}.png",
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                        CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                                Colors.black)),
+                    errorWidget: (context, url, error) => CachedNetworkImage(
+                      fit: BoxFit.contain,
+                      imageUrl:
+                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${widget.pokemon.id}.png",
+                      progressIndicatorBuilder: (context, url,
+                          downloadProgress) =>
+                          CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.black)),
+                      errorWidget: (context, url, error) => CachedNetworkImage(
                         fit: BoxFit.contain,
                         imageUrl:
-                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.pokemon.id}.png",
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
+                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${widget.pokemon.id}.png",
+                        progressIndicatorBuilder: (context, url,
+                            downloadProgress) =>
                             CircularProgressIndicator(
                                 value: downloadProgress.progress,
                                 valueColor: const AlwaysStoppedAnimation<Color>(
                                     Colors.black)),
-                        errorWidget: (context, url, error) => CachedNetworkImage(
-                          fit: BoxFit.contain,
-                          imageUrl:
-                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${widget.pokemon.id}.png",
-                          progressIndicatorBuilder: (context, url,
-                              downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress,
-                                  valueColor: const AlwaysStoppedAnimation<Color>(
-                                      Colors.black)),
-                          errorWidget: (context, url, error) => CachedNetworkImage(
-                            fit: BoxFit.contain,
-                            imageUrl:
-                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${widget.pokemon.id}.png",
-                            progressIndicatorBuilder: (context, url,
-                                downloadProgress) =>
-                                CircularProgressIndicator(
-                                    value: downloadProgress.progress,
-                                    valueColor: const AlwaysStoppedAnimation<Color>(
-                                        Colors.black)),
-                            errorWidget: (context, url, error) => const Text(""),
-                          ),
-                        ),
+                        errorWidget: (context, url, error) => const Text(""),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           SizedBox(
