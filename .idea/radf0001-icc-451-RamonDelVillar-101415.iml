@@ -2,7 +2,20 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/my_first_app_flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/my_first_app_flutter/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/my_first_app_flutter/build" />
+      <excludeFolder url="file://$MODULE_DIR$/paginacion/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/paginacion/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/paginacion/build" />
+      <excludeFolder url="file://$MODULE_DIR$/personalizado/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/personalizado/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/personalizado/build" />
+      <excludeFolder url="file://$MODULE_DIR$/proyectofinal/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/proyectofinal/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/proyectofinal/build" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

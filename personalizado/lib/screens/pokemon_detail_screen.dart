@@ -75,7 +75,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
             return WhiteSheetWidget(pokemon: widget.pokemon);
           }
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.white,
     );
   }
 }

@@ -73,11 +73,11 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Ability Description:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                  const Text('Ability Description:', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   const SizedBox(height: 8),
-                  Text(flavorText, style: const TextStyle(color: Colors.white, fontSize: 20)),
+                  Text(flavorText, style: const TextStyle(color: Colors.black, fontSize: 20)),
                   const SizedBox(height: 32),
-                  Text('Pokemons with this ability: ${pokemons.length}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                  Text('Pokemons with this ability: ${pokemons.length}', style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   Expanded(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -91,7 +91,7 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                               children: [
                                 const SizedBox(height: 16),
                                 Row(children: [
-                                  Text(pokemonName, style: const TextStyle(color: Colors.white, fontSize: 20)),
+                                  Text(pokemonName, style: const TextStyle(color: Colors.black, fontSize: 20)),
                                   const Spacer(),
                                   SizedBox(
                                     width: 75,
@@ -102,21 +102,21 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                                         fit: BoxFit.contain,
                                         imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonName.split(' ')[0]}.png",
                                         progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
+                                            CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.black)),
                                         errorWidget: (context, url, error) {
                                           imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonName.split(' ')[0]}.png";
                                           return CachedNetworkImage(
                                             fit: BoxFit.cover,
                                             imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonName.split(' ')[0]}.png",
                                             progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                                CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
+                                                CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.black)),
                                             errorWidget: (context, url, error) {
                                               imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonName.split(' ')[0]}.png";
                                               return CachedNetworkImage(
                                                 fit: BoxFit.cover,
                                                 imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonName.split(' ')[0]}.png",
                                                 progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                                    CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.white)),
+                                                    CircularProgressIndicator(value: downloadProgress.progress, valueColor: const AlwaysStoppedAnimation<Color>(Colors.black)),
                                                 errorWidget: (context, url, error) {
                                                   imageUrl = "";
                                                   return const Text("");
@@ -145,7 +145,7 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
           }
         },
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: const Color.fromARGB(255, 249, 249, 249),
     );
   }
 }

@@ -15,14 +15,14 @@ class TitleAndSubtitleWidget extends StatelessWidget {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-              color: Colors.white
+              color: Colors.black
           ),
         ),
         const SizedBox(height: 8),
         Text(
           subtitle.toString(), style: const TextStyle(
             fontSize: 16,
-            color: Colors.white
+            color: Colors.black
           ),
         ),
         const SizedBox(height: 16),

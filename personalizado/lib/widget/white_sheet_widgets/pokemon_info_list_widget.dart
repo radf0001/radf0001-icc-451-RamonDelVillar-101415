@@ -23,7 +23,7 @@ class PokemonInfoListWidget extends StatelessWidget {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-              color: Colors.white
+              color: Colors.black
           ),
         ),
         ...pokemonData.asMap().entries.map((entry) {
@@ -39,7 +39,7 @@ class PokemonInfoListWidget extends StatelessWidget {
                     "${index+1}. $groupName ",
                     style: const TextStyle(
                       fontSize: 16,
-                        color: Colors.white
+                        color: Colors.black
                     ),
                   ),
                   Image.asset(
@@ -52,7 +52,7 @@ class PokemonInfoListWidget extends StatelessWidget {
                 "${index+1}. $groupName",
                 style: const TextStyle(
                   fontSize: 16,
-                  color: Colors.white
+                  color: Colors.black
                 ),
               ),
             ],

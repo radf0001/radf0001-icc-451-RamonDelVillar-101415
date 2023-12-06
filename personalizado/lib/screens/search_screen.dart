@@ -23,7 +23,7 @@ class SearchScreen extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: const Color.fromARGB(255, 249, 249, 249),
     );
   }
 }

@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed61c12d-6ebf-4b73-aa5b-ff700f4713a4" name="Changes" comment="MyFirstApp Arreglos de Color y otros dettales" />
+    <list default="true" id="ed61c12d-6ebf-4b73-aa5b-ff700f4713a4" name="Changes" comment="MyFirstApp Arreglos de Color y otros dettales">
+      <change beforePath="$PROJECT_DIR$/personalizado/lib/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/personalizado/lib/screens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalizado/lib/screens/search_ability_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/personalizado/lib/screens/search_ability_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalizado/lib/screens/search_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/personalizado/lib/screens/search_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalizado/lib/widget/pokemon_card_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/personalizado/lib/widget/pokemon_card_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalizado/lib/widget/search_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/personalizado/lib/widget/search_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalizado/lib/widget/white_sheet_widgets/evolution_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/personalizado/lib/widget/white_sheet_widgets/evolution_widget.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,26 +20,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2ViWmIWncGsByzBaE3EqQlWFMue" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "dart.analysis.tool.window.visible": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "experimentalPlugin",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;experimentalPlugin&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,6 +60,7 @@
       <workItem from="1695511738853" duration="376000" />
       <workItem from="1695512171288" duration="376000" />
       <workItem from="1700755960084" duration="111000" />
+      <workItem from="1701891521909" duration="336000" />
     </task>
     <task id="LOCAL-00001" summary="Build Your First App">
       <option name="closed" value="true" />

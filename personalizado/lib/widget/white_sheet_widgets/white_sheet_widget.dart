@@ -125,7 +125,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                             CircularProgressIndicator(
                                 value: downloadProgress.progress,
                                 valueColor: const AlwaysStoppedAnimation<Color>(
-                                    Colors.white)),
+                                    Colors.black)),
                         errorWidget: (context, url, error) => CachedNetworkImage(
                           fit: BoxFit.contain,
                           imageUrl:
@@ -135,7 +135,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                               CircularProgressIndicator(
                                   value: downloadProgress.progress,
                                   valueColor: const AlwaysStoppedAnimation<Color>(
-                                      Colors.white)),
+                                      Colors.black)),
                           errorWidget: (context, url, error) => CachedNetworkImage(
                             fit: BoxFit.contain,
                             imageUrl:
@@ -145,7 +145,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                                 CircularProgressIndicator(
                                     value: downloadProgress.progress,
                                     valueColor: const AlwaysStoppedAnimation<Color>(
-                                        Colors.white)),
+                                        Colors.black)),
                             errorWidget: (context, url, error) => const Text(""),
                           ),
                         ),
@@ -171,7 +171,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                 if (loading)
                   const Expanded(
                     child: Center(
-                        child: CircularProgressIndicator(color: Colors.white)),
+                        child: CircularProgressIndicator(color: Colors.black)),
                   ),
                 // display the pageView when finish loading
                 if (!loading)
@@ -202,7 +202,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
       );
     } else {
       return const Center(
-          child: CircularProgressIndicator(color: Colors.white));
+          child: CircularProgressIndicator(color: Colors.black));
     }
   }
 
@@ -229,13 +229,13 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: _currentTabIndex == tabIndex
-                      ? (Colors.white)
+                      ? (Colors.black)
                       : Colors.grey)),
           if (tabIndex == _currentTabIndex)
             Container(
               width: scrollTabs[tabIndex].length * 10,
               height: 2,
-              color: Colors.white,
+              color: Colors.black,
             ),
         ],
       ),

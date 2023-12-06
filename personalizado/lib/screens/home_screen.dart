@@ -16,11 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
 
-  callback(){
-    setState(() {
-    });
-  }
-
   final pokemonFavoriteService = PokemonFavoritesController();
   ScrollController scrollController = ScrollController();
   int limit = 76;
@@ -154,14 +149,18 @@ class _HomePageState extends State<HomePage>{
     "dragon",
     "dark",
     "fairy",
-    "unknown",
-    "shadow",
   ];
   dynamic result = "";
   dynamic pokemonResult = "";
 
   @override
   Widget build(BuildContext context) {
+// Calcula el número de elementos por fila basado en el ancho de la pantalla.
+    int width = MediaQuery.of(context).size.width.toInt();
+    // Define el ancho mínimo que debe tener un elemento para que quepan bien en la pantalla.
+    int minItemWidth = 120;
+    // Calcula cuántos elementos caben en una fila.
+    int crossAxisCount = (width / minItemWidth).floor();
     // super.build(context);
     return Scaffold(
       appBar: AppBar(
@@ -254,7 +253,7 @@ class _HomePageState extends State<HomePage>{
         backgroundColor: Colors.black,
       ),
       body: OrientationBuilder(
-        builder: (context, orientation){
+          builder: (context, orientation) {
           return SmartRefresher(
             controller: refreshController,
             enablePullUp: true,
@@ -275,26 +274,28 @@ class _HomePageState extends State<HomePage>{
               }
             },
             child: GridView.builder(
-              // addAutomaticKeepAlives: true,
               controller: scrollController,
               itemCount: pokemonsResult.length,
-              itemBuilder: (context, index){
-                if(valueChoose == "all" || isFavorite){
-                  pokemonResult = pokemonsResult[index];
-                }else{
-                  pokemonResult = pokemonsResult[index]['pokemon'];
-                }
-                return PokemonCardItem(pokemonResult: pokemonResult, index: index, callBack: callback,);
+              itemBuilder: (context, index) {
+                var pokemonResult = valueChoose == "all" || isFavorite
+                    ? pokemonsResult[index]
+                    : pokemonsResult[index]['pokemon'];
+                return PokemonCardItem(
+                    pokemonResult: pokemonResult, index: index);
               },
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 250, // maximum size of item (on small screens 1 item per row, on bigger as many as can fit with 200.0 px width)
-                childAspectRatio: 9/12
+              // Se usa SliverGridDelegateWithFixedCrossAxisCount para controlar el número de elementos por fila
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                childAspectRatio:10 / 14,
+                // Puedes ajustar los espacios según necesites
+                crossAxisSpacing: 0.0,
+                mainAxisSpacing: 0.0,
               ),
             ),
           );
         },
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: const Color.fromARGB(255, 249, 249, 249),
     );
   }
 }

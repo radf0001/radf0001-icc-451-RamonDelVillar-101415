@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../models/pokemon_basic_data.dart';
 import '../screens/pokemon_detail_screen.dart';
 import '../services/pokemon_favorite.dart';
 import '../utils/bottom_to_top.dart';
 
 class PokemonCardItem extends StatefulWidget {
-  final Function callBack;
   final dynamic pokemonResult;
   final int index;
 
   const PokemonCardItem(
-      {super.key,
-        required this.pokemonResult,
-        required this.index,
-        required this.callBack});
+      {super.key, required this.pokemonResult, required this.index});
 
   @override
   State<PokemonCardItem> createState() => _PokemonCardItemState();
@@ -31,141 +26,125 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
 
   @override
   Widget build(BuildContext context) {
-    bool isFavorite = false;
-    Future<void> checkFavorite(String idAndName) async {
-      isFavorite = await pokemonFavoriteService.isPokemonFavorite(idAndName);
-    }
     final dynamic id = widget.pokemonResult['url'].split('/')[6];
-    Color cardColor = widget.index.isEven ? Colors.redAccent : Colors.blueAccent;
-    String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png";
-    List<Color> gradient = [
-      cardColor,
-      cardColor,
-      Colors.white,
-      Colors.white,
-    ];
+    String imageUrl =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png";
 
     // update ids and imageUrls
     return InkWell(
       key: Key(id),
       onTap: () async{
         await Navigator.of(context).push(AnimatedRoute(PokemonDetailScreen(pokemon: PokemonBasicData(id: id, name: widget.pokemonResult['name'], imageUrl: imageUrl, ))));
-        widget.callBack();
         setState(() {
 
         });
       },
-      child: Padding(
+      child: Column(
         key: Key(id),
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            gradient: LinearGradient(
-              colors: gradient,
-              stops: const [0.0, 0.5, 0.5, 1.0],
-              end: Alignment.bottomCenter,
-              begin: Alignment.topCenter,
+        mainAxisSize: MainAxisSize
+            .min, // Asegura que la columna ocupe el menor espacio posible
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Opacity(
+                  opacity:
+                  0.7, // Ajusta este valor a la opacidad que deseas, por ejemplo 0.5 para el 50%
+                  child: SvgPicture.asset(
+                    "lib/images/img_group_95.svg",
+                    //  width: MediaQuery.of(context).size.width / 3.5,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 4.5,
+                  child: Hero(
+                    tag: id,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl:
+                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                          CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  widget.index.isEven
+                                      ? Colors.blueAccent
+                                      : Colors.redAccent)),
+                      errorWidget: (context, url, error) {
+                        imageUrl =
+                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png";
+                        return CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl:
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png",
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      widget.index.isEven
+                                          ? Colors.blueAccent
+                                          : Colors.redAccent)),
+                          errorWidget: (context, url, error) {
+                            imageUrl =
+                            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png";
+                            return CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl:
+                              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png",
+                              progressIndicatorBuilder: (context, url,
+                                  downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          widget.index.isEven
+                                              ? Colors.blueAccent
+                                              : Colors.redAccent)),
+                              errorWidget: (context, url, error) {
+                                imageUrl = "";
+                                return const Text("");
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Container(
-                height: 3,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.black),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              widget.pokemonResult['name'],
+              style: Theme.of(context).textTheme.titleMedium!.merge(
+                const TextStyle(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-              Container(
-                width: 60,
-                height: 60,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black),
-              ),
-              Container(
-                width: 50,
-                height: 50,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white),
-              ),
-              widget.index.isEven ? SvgPicture.asset("lib/images/redPokeBall.svg") : SvgPicture.asset("lib/images/bluePokeball.svg"),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FutureBuilder(
-                          future: checkFavorite("$id ${widget.pokemonResult['name']}"),
-                            builder: (context, dataSnapShot) {
-                              return IconButton(
-                                  onPressed: () async {
-                                    await pokemonFavoriteService
-                                        .toggleFavoritePokemon("$id ${widget.pokemonResult['name']}");
-                                    setState(() {
-
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: isFavorite
-                                        ? cardColor ==
-                                        Colors.redAccent
-                                        ? Colors.blueAccent
-                                        : Colors.redAccent
-                                        : Colors.white,
-                                    size: 30,
-                                  ));
-                            }
-                          ),
-                      Text("${id.toString().padLeft(5, '0')} ",
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 150,
-                    height: 150,
-                    child: Hero(
-                      tag: id,
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
-                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                        errorWidget: (context, url, error) => CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$id.png",
-                          progressIndicatorBuilder: (context, url, downloadProgress) =>
-                              CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                          errorWidget: (context, url, error) => CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png",
-                            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                CircularProgressIndicator(value: downloadProgress.progress, valueColor: AlwaysStoppedAnimation<Color>(widget.index.isEven ?Colors.blueAccent : Colors.redAccent)),
-                            errorWidget: (context, url, error) => const Text(""),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3),
-                      child: Text(widget.pokemonResult['name'],
-                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
+            ),
           ),
-        ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              "#${id.toString().padLeft(5, '0')}",
+              style: Theme.of(context).textTheme.titleSmall!.merge(
+                const TextStyle(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

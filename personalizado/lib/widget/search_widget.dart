@@ -142,7 +142,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                     Text(resultText,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: 18)),
                                     const Spacer(),
                                     isNameFilterSelected
@@ -165,7 +165,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                         valueColor:
                                                             const AlwaysStoppedAnimation<
                                                                     Color>(
-                                                                Colors.white)),
+                                                                Colors.black)),
                                                 errorWidget:
                                                     (context, url, error) {
                                                   imageUrl =
@@ -185,7 +185,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                 const AlwaysStoppedAnimation<
                                                                         Color>(
                                                                     Colors
-                                                                        .white)),
+                                                                        .black)),
                                                     errorWidget:
                                                         (context, url, error) {
                                                       imageUrl =
@@ -205,7 +205,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                     const AlwaysStoppedAnimation<
                                                                             Color>(
                                                                         Colors
-                                                                            .white)),
+                                                                            .black)),
                                                         errorWidget: (context,
                                                             url, error) {
                                                           imageUrl = "";

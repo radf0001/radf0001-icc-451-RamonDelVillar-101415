@@ -65,11 +65,11 @@ class _StatRowWidgetState extends State<StatRowWidget> {
                 child: Text(
                   statTitle,
                   style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
                 )),
             const SizedBox(width: 16),
             Text(statNumber.toString(),
-                style: const TextStyle(color: Colors.white, fontSize: 16)),
+                style: const TextStyle(color: Colors.black, fontSize: 16)),
             const SizedBox(width: 16),
             Expanded(
               child: LayoutBuilder(
