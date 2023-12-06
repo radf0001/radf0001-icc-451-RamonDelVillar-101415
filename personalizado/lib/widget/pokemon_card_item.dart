@@ -125,7 +125,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              widget.pokemonResult['name'],
+              widget.pokemonResult['name'][0].toUpperCase() + widget.pokemonResult['name'].substring(1),
               style: Theme.of(context).textTheme.titleMedium!.merge(
                 const TextStyle(
                   fontWeight: FontWeight.w700,

@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +105,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                     ),
                     const Spacer(),
                     Text(
-                      '${widget.pokemon.name} ',
+                      '${widget.pokemon.name[0].toUpperCase() + widget.pokemon.name.substring(1)} ',
                       style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

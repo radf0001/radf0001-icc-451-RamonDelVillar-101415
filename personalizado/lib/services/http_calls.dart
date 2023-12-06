@@ -30,7 +30,7 @@ class HttpCalls{
         String flavorTextEdited = 'Unknown';
         try{
           for(dynamic temp in pokemonInfo['flavor_text_entries']){
-            if(temp["language"]["name"] == "en"){
+            if(temp["language"]["name"] == "es"){
               String flavorText = "${temp['flavor_text'].toLowerCase().replaceAll(RegExp('\n'), ' ').replaceAll(RegExp('’'), "'").replaceAll(RegExp("\f"), ' ')}";
               if(!myList.contains(flavorText)){
                 myList.add(flavorText);
