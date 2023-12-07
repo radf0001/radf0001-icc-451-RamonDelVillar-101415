@@ -88,7 +88,7 @@ class _WhiteSheetWidgetState extends State<WhiteSheetWidget> {
                           : "default")),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.3), // Ajusta el valor de opacidad según tus necesidades
+                    Colors.black.withOpacity(0.5), // Ajusta el valor de opacidad según tus necesidades
                     BlendMode.darken,
                   ),),
             ),
