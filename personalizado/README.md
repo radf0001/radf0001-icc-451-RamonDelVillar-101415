@@ -36,8 +36,8 @@ La aplicación hace uso de la [PokeAPI](https://pokeapi.co/) para obtener la inf
 ## Características
 
 - Listado de Pokémon: Muestra un grid de tarjetas con la imagen y el nombre de cada Pokémon.
--Búsqueda de Pokémon: Permite a los usuarios buscar Pokémon por nombre.
--Detalle de Pokémon: Al seleccionar un Pokémon, se muestra una pantalla con más detalles como sus estadísticas, movimientos, habilidades y evoluciones.
+- Búsqueda de Pokémon: Permite a los usuarios buscar Pokémon por nombre.
+- Detalle de Pokémon: Al seleccionar un Pokémon, se muestra una pantalla con más detalles como sus estadísticas, movimientos, habilidades y evoluciones.
 - Favoritos: Los usuarios pueden marcar a los Pokémon como favoritos y ver una lista filtrada de sus favoritos.
 - Compartir: Los usuarios pueden compartir detalles de Pokémon específicos con otros.
 ## Problemas Conocidos y Soluciones
